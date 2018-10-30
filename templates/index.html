@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mission to Mars</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+   <div class="jumbtron" align="center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New</a></p> 
+    </div>
+
+    <!-- mars -->
+    <div class="row" id="mars-mission">
+      <div class="col-md-12">
+          <h2>Latest news</h2>
+          <h4>{{news}}</h4>
+          <p>{{para}}</p> 
+          <p>"https://www.jpl.nasa.gov{{featured_img_url}}"</p>     
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+          <h2>Featured Mars Image</h2>
+          <img src="https://www.jpl.nasa.gov{{featured_img_url}}"  alt = "Featured Image from NASA">
+
+        </div>
+
+        <div class="col-md-6">
+          <h3>Current Weather on Mars</h3>
+          <p> {{mars_weather}} </p>
+          <h3>Mars Facts</h3>
+          <table>
+            {{mars_facts|safe}}
+          </table>
+
+        </div>
+
+       
+    </div>
+
+  </div>
+
+  <div class="container">
+    <div class="jumbtron" align="center">
+      <div class="col-md-12" align="center">
+        <h1> Mars Hemispheres</h1>
+      </div>
+
+      <div>
+        <ul>
+          <p>item1 </p>
+          {% for hemisphere in Hemispheres %}
+            <li>item 2</li>
+            <li>{{ hemisphere.title }} {{ hemisphere.url}}</li>
+
+          {% endfor %}
+  
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>
+
