@@ -20,25 +20,25 @@
     <div class="row" id="mars-mission">
       <div class="col-md-12">
           <h2>Latest news</h2>
-          <h4>{{news}}</h4>
-          <p>{{para}}</p> 
-          <p>"https://www.jpl.nasa.gov{{featured_img_url}}"</p>     
+          <h4>{{mars.news_t}}</h4>
+          <p>{{mars.news_p}}</p> 
+           
       </div>
     </div>
 
     <div class="row">
         <div class="col-md-6">
           <h2>Featured Mars Image</h2>
-          <img src="https://www.jpl.nasa.gov{{featured_img_url}}"  alt = "Featured Image from NASA">
+          <img src="https://www.jpl.nasa.gov{{mars.featured_img_url}}"  width=450 height= 500 alt = "Featured Image from NASA">
 
         </div>
 
         <div class="col-md-6">
           <h3>Current Weather on Mars</h3>
-          <p> {{mars_weather}} </p>
+          <p> {{mars.mars_weather}} </p>
           <h3>Mars Facts</h3>
           <table>
-            {{mars_facts|safe}}
+            {{mars.mars_facts|safe}}
           </table>
 
         </div>
@@ -53,19 +53,19 @@
       <div class="col-md-12" align="center">
         <h1> Mars Hemispheres</h1>
       </div>
-
-      <div>
-        <ul>
-          <p>item1 </p>
-          {% for hemisphere in Hemispheres %}
-            <li>item 2</li>
-            <li>{{ hemisphere.title }} {{ hemisphere.url}}</li>
-
+      
+      <div class="container">
+          
+          {% for hemisphere in mars.hemispheres %}
+          <div class="col-md-6" >
+            <h2 >{{ hemisphere.title }}</h2>
+            <img src= {{ hemisphere.url}}  width=450 height= 500 alt = "hemispere1">
+          </div>
           {% endfor %}
-  
-        </ul>
+          
       </div>
 
+    
     </div>
   </div>
 

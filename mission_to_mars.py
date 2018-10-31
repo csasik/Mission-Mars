@@ -8,9 +8,14 @@ from bs4 import BeautifulSoup as bs
 import requests
 from splinter import Browser
 import pandas as pd
-
+from flask import Flask, render_template
+import pymongo
 
 # In[17]:
+conn = 'mongodb://localhost:27017'
+client = pymongo.MongoClient(conn)
+db = client.mars_db
+db.mars_table.drop()
 
 def scrape(): 
     executable_path = {'executable_path': 'chromedriver.exe'}
@@ -60,7 +65,7 @@ def scrape():
     # In[13]:
 
 
-    news_p= results.find('div',class_="rollover_description_inner").text
+    news_p= results2.find('div',class_="rollover_description_inner").text
     print(news_p)
 
 
@@ -77,9 +82,8 @@ def scrape():
     html = browser.html
     soup = bs(html, 'html.parser')
 
-    featured_img = soup.find('img', class_='fancybox-image')
-
-    featured_img_url = str(featured_img['src'])
+    featured_img = soup.find('footer').a
+    featured_img_url = featured_img['data-fancybox-href']
     print(featured_img_url)
 
 
@@ -102,7 +106,7 @@ def scrape():
 
     # In[177]:
 
-
+    facts_url = "https://space-facts.com/mars/"
     tables = pd.read_html(facts_url)
     tables
 
@@ -127,7 +131,7 @@ def scrape():
 
     html_table = df.to_html()
     html_table = html_table.replace('\n', '')
-    html_table
+    print(html_table)
 
 
     # In[27]:
@@ -199,8 +203,15 @@ def scrape():
         hemisphere_image_urls.append(d)
 
 
-    # In[36]:
-
-
-    print(hemisphere_image_urls)
-
+    
+    db.mars_table.insert_one({
+        'news_t':news_t,
+        'news_p':news_p,
+        'featured_img_url':featured_img_url,
+        'mars_weather':mars_weather,
+        'mars_facts':html_table,
+        'hemispheres':hemisphere_image_urls
+    })
+    
+    #return hemisphere_image_urls   
+    
